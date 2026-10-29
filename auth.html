@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sproutie — เข้าสู่ระบบ</title>
+<style>body{margin:0;display:flex;align-items:center;justify-content:center;height:100vh;background:#fffaf0;color:#5b4636;font:18px sans-serif}</style>
+</head><body><div id="m">กำลังกลับเข้าเกม…</div>
+<script>
+// หน้าต่างป๊อปอัปล็อกอิน Google (ผู้ใช้ 2026-10-24 "อยากได้แบบป๊อปอัป ไม่ออกจากเว็บที่เล่น")
+// Supabase ส่งกลับมาที่หน้านี้พร้อมโทเคนใน # → ส่งให้หน้าเกมที่เปิดอยู่ (opener) แล้วปิดตัวเอง · เปิดตรง ๆ (ไม่มี opener) = กลับไปหน้าเกมพร้อม #
+(function () {
+  var h = location.hash || "";
+  try {
+    if (window.opener && !window.opener.closed) {
+      window.opener.postMessage({ sproutie_auth: h }, location.origin);
+      document.getElementById("m").textContent = "เข้าสู่ระบบแล้ว ปิดหน้าต่างนี้ได้เลย";
+      setTimeout(function () { window.close(); }, 300);
+      return;
+    }
+  } catch (e) {}
+  location.replace("./" + h);
+})();
+</script></body></html>
